@@ -1,17 +1,15 @@
 package com.parcelEase.parcelEase.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
 @Table(name = "student")
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Student {
 
     @Id
@@ -30,8 +28,7 @@ public class Student {
     @Column(name = "course")
     private String course;
 
-    // Phone number is no longer unique (one-to-many relationship)
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number", nullable = false, unique = true)
     private String phoneNumber;
 
     @Column(name = "email", nullable = false)
@@ -40,20 +37,9 @@ public class Student {
     @Column(name = "address")
     private String address;
 
-    // Removed constructor with phone number arguments
-    public Student() {
-    }
 
-    public Student(String firstName, String middleName, String lastName, String course, String email, String address) {
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.course = course;
-        this.email = email;
-        this.address = address;
-    }
-
-    // Add a one-to-many relationship with Parcel class (optional, for clarity)
-    @OneToMany(mappedBy = "student")
+    @OneToMany
+    @JoinColumn(name = "phone_number")
     private List<Parcel> parcels;
 }
+

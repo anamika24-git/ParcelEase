@@ -1,42 +1,51 @@
 package com.parcelEase.parcelEase.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
+
 
 @Entity
 @Table(name = "parcel")
-@Getter
-@Setter
+@Data
 public class Parcel {
 
     // Removed phone number field (foreign key)
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="pid")
+    @Column(name = "pid")
     private int pid;
 
-//    @ManyToOne
-//    @JoinColumn(name = "phone_number")  // Foreign key referencing student phone number
+    @ManyToOne
+    @JoinColumn(name = "phone_number", nullable = false) // Assuming phone_number is the foreign key column in Parcel referencing Student
+    private Student student;
+
+
+
+//    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+//    @JoinColumn(name = "phone_number")
 //    private Student student;
 
-    @Column(name = "from", nullable = false)
-    private String from;
+    @Column(name = "origin", nullable = false)
+    private String origin;
 
     @Column(name = "date", nullable = false)
     private String date;
 
     @Column(name = "shelf_number", nullable = false)
     private String shelfNumber;
+
     public Parcel() {
     }
 
-
-    public Parcel(String from, String date, String shelfNumber) {
-        this.from = from;
+    public Parcel(String origin, String date, String shelfNumber) {
+        this.origin = origin;
         this.date = date;
         this.shelfNumber = shelfNumber;
     }
 }
+
+
+
+
+
