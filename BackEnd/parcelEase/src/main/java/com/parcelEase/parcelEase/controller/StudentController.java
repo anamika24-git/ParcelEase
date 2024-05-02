@@ -1,6 +1,7 @@
 package com.parcelEase.parcelEase.controller;
 
 
+import com.parcelEase.parcelEase.entity.Parcel;
 import com.parcelEase.parcelEase.entity.Student;
 import com.parcelEase.parcelEase.service.StudentService;
 import org.springframework.web.bind.annotation.*;
@@ -34,10 +35,12 @@ public class StudentController {
         return theStudent;
     }
 
-//    @PostMapping("/parcels")
-//    public Student parcelReceived(@RequestBody OrderRequest orderRequest) {
-//        return studentRepository.save(orderRequest.getStudent());
-//    }
+    @PostMapping("/parcels/{rollNumber}")
+    public Student parcelReceived(@RequestBody Parcel parcel,
+                                  @PathVariable("rollNumber") String rollNumber) {
+
+        return studentService.save(parcel, rollNumber);
+    }
 
 //     @GetMapping("/parcelsList")
 //     public List<Student> findAllParcels() {

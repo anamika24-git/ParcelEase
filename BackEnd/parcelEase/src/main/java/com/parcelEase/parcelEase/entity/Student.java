@@ -1,5 +1,6 @@
 package com.parcelEase.parcelEase.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -38,8 +39,8 @@ public class Student {
     private String address;
 
 
-    @OneToMany
-    @JoinColumn(name = "phone_number")
+    @JsonBackReference
+    @OneToMany(mappedBy = "student" , cascade = CascadeType.MERGE)
     private List<Parcel> parcels;
 }
 

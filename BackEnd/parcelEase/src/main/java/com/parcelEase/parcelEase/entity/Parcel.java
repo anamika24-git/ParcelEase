@@ -1,23 +1,29 @@
 package com.parcelEase.parcelEase.entity;
 
+import com.parcelEase.parcelEase.entity.Student;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Entity
 @Table(name = "parcel")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Parcel {
 
     // Removed phone number field (foreign key)
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pid")
+    @Column(name = "pid", nullable = false)
     private int pid;
 
+
     @ManyToOne
-    @JoinColumn(name = "phone_number", nullable = false) // Assuming phone_number is the foreign key column in Parcel referencing Student
+    @JoinColumn(name = "roll_no", nullable = false) // Assuming phone_number is the foreign key column in Parcel referencing Student
     private Student student;
 
 
@@ -35,17 +41,18 @@ public class Parcel {
     @Column(name = "shelf_number", nullable = false)
     private String shelfNumber;
 
-    public Parcel() {
-    }
+    @Column(name = "received_by", nullable = false)
+    private String  receivedBy;
 
-    public Parcel(String origin, String date, String shelfNumber) {
-        this.origin = origin;
-        this.date = date;
-        this.shelfNumber = shelfNumber;
-    }
+    @Column(name = "status", nullable = false)
+    private int  status;
+
+    @Column(name = "ph_number", nullable = false)
+    private String  phNumber;
+
+
+
 }
-
-
 
 
 
