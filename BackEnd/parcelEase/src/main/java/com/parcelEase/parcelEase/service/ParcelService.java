@@ -2,7 +2,10 @@ package com.parcelEase.parcelEase.service;
 
 import com.parcelEase.parcelEase.entity.Parcel;
 
+import java.util.List;
+
 public interface ParcelService {
 
-    Parcel save(Parcel theParcel);
+    List<Parcel> findByStatus(int status);
+
 }

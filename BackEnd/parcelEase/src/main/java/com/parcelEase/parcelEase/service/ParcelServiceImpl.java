@@ -5,6 +5,8 @@ import com.parcelEase.parcelEase.repository.ParcelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ParcelServiceImpl implements ParcelService {
     private ParcelRepository parcelRepository;
@@ -14,7 +16,5 @@ public ParcelServiceImpl(ParcelRepository theParcelRepository) {
     parcelRepository = theParcelRepository;
 }
     @Override
-    public Parcel save(Parcel theParcel) {
-        return parcelRepository.save(theParcel);
-    }
+    public List<Parcel> findByStatus(int status) {return parcelRepository.findByStatus(status);}
 }
