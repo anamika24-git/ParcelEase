@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/parcelease")
+@CrossOrigin(origins = "*")
 public class StudentController {
 
     private StudentService studentService;

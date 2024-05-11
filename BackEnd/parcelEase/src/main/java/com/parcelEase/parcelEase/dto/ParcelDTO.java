@@ -8,14 +8,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ParcelDTO {
-
+    private int pid;
     private String origin;
     private String date;
     private String shelfNumber;
     private String receivedBy;
-    private int status;
-    private String phNumber;
+    private int isCollected;
     private String studentRollNo;
-
 
 }

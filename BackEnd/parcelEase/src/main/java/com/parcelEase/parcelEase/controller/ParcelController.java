@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/parcelease")
+@CrossOrigin(origins = "*")
 public class ParcelController {
 
     ParcelService parcelService;
@@ -21,19 +22,19 @@ public class ParcelController {
     }
     @GetMapping("/parcels")
     public List<ParcelDTO> getActiveParcels() {
-        List<Parcel> activeParcels =  parcelService.findByStatus(1);
+        List<Parcel> activeParcels =  parcelService.findByIsCollected(1);
         List<ParcelDTO> parcelDTOs = new ArrayList<>();
         for (Parcel parcel : activeParcels) {
             String studentRollNo = parcel.getStudent().getRollNo(); // Extract student roll number
 
             // Create a new ParcelDTO object and include the studentRollNo
             ParcelDTO parcelDTO = new ParcelDTO(
+                    parcel.getPid(),
                     parcel.getOrigin(),       // Set origin from Parcel
                     parcel.getDate(),         // Set date from Parcel
                     parcel.getShelfNumber(),  // Set shelfNumber from Parcel
                     parcel.getReceivedBy(),   // Set receivedBy from Parcel
-                    parcel.getStatus(),       // Set status from Parcel
-                    parcel.getPhNumber(),     // Set phNumber from Parcel
+                    parcel.getIsCollected(),     // Set status from Parcel
                     studentRollNo             // Set studentRollNo extracted earlier
             );
 

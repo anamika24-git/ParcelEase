@@ -1,17 +1,12 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import Router, Routes, and Route
+import logo from './logo.svg';
 import './App.css';
-import Login from './component/Login1';
-import PhoneNumberForm from './component/home';
+import Front from './component/Front';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route exact path="/" element={<Login />} />   
-
-      </Routes>
-    </Router>
+    <div className="App">
+      <Front/>
+    </div>
   );
 }
 

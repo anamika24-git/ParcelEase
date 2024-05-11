@@ -16,5 +16,6 @@ public ParcelServiceImpl(ParcelRepository theParcelRepository) {
     parcelRepository = theParcelRepository;
 }
     @Override
-    public List<Parcel> findByStatus(int status) {return parcelRepository.findByStatus(status);}
+    public List<Parcel> findByIsCollected(int status) {return parcelRepository.findByIsCollected(status);}
+
 }

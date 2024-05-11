@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface ParcelService {
 
-    List<Parcel> findByStatus(int status);
+    List<Parcel> findByIsCollected(int status);
 
 }

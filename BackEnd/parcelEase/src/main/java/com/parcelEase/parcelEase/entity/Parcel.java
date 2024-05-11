@@ -2,9 +2,8 @@ package com.parcelEase.parcelEase.entity;
 
 import com.parcelEase.parcelEase.entity.Student;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.stereotype.Service;
 
 
 @Entity
@@ -44,13 +43,8 @@ public class Parcel {
     @Column(name = "received_by", nullable = false)
     private String  receivedBy;
 
-    @Column(name = "status", nullable = false)
-    private int  status;
-
-    @Column(name = "ph_number", nullable = false)
-    private String  phNumber;
-
-
+    @Column(name = "is_collected", nullable = false)
+    private int isCollected;
 
 }
 
