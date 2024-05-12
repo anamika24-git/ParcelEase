@@ -1,0 +1,15 @@
+.topbarContainer {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: black;
+    color: white;
+    height: 40px;
+    justify-content: space-between;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.topContainer {
+    margin-top: 15px;
+    font-weight: 600;
+}
