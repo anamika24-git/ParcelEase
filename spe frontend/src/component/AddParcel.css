@@ -1,0 +1,67 @@
+/* AddParcel.css */
+.add-parcel-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  flex: 1;
+}
+
+.input-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.input-group {
+    margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.input-phone-group {
+  margin-right: 10px;
+}
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  margin-right: 10px;
+}
+
+.saveDetailsBtn {
+  min-width: 150px;
+  background-color: #1d2122;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.searchDetailsBtn {
+  min-width: 100px;
+  background-color: #1d2122;
+  color: #fff;
+  border: none;
+  padding: 8px 5px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+input[type="text"] {
+  width: 200px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input[type="password"] {
+    width: 200px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  

@@ -1,24 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const ParcelTable = () => {
-  const [data, setData] = useState([
-    { id: 1, name: 'John Doe', email: 'john@example.com', validated: false },
-    { id: 2, name: 'Jane Smith', email: 'jane@example.com', validated: false },
-    { id: 3, name: 'Bob Johnson', email: 'bob@example.com', validated: false },
-  ]);
-
-  const handleValidate = (parcelId) => {
-    console.log("parcelId", parcelId);
-  };
+const ParcelTable = ({handleValidate, data}) => {
 
   return (
     <table style={{ width: '100%', borderCollapse: 'collapse' }}>
       <thead>
         <tr style={{ backgroundColor: '#f2f2f2' }}>
-          <th style={{ padding: '10px', textAlign: 'left', borderBottom: '1px solid #ddd' }}>ID</th>
+          <th style={{ padding: '10px', textAlign: 'left', borderBottom: '1px solid #ddd' }}>Parcel Id</th>
           <th style={{ padding: '10px', textAlign: 'left', borderBottom: '1px solid #ddd' }}>Name</th>
           <th style={{ padding: '10px', textAlign: 'left', borderBottom: '1px solid #ddd' }}>Email</th>
-          <th style={{ padding: '10px', textAlign: 'left', borderBottom: '1px solid #ddd' }}>Validated</th>
+          <th style={{ padding: '10px', textAlign: 'left', borderBottom: '1px solid #ddd' }}>Received By</th>
+          <th style={{ padding: '10px', textAlign: 'left', borderBottom: '1px solid #ddd' }}>Company</th>
+          <th style={{ padding: '10px', textAlign: 'left', borderBottom: '1px solid #ddd' }}>Date</th>
+          <th style={{ padding: '10px', textAlign: 'left', borderBottom: '1px solid #ddd' }}>Shelf Number</th>
           <th style={{ padding: '10px', textAlign: 'left', borderBottom: '1px solid #ddd' }}>Action</th>
         </tr>
       </thead>
@@ -28,7 +22,10 @@ const ParcelTable = () => {
             <td style={{ padding: '10px' }}>{row.id}</td>
             <td style={{ padding: '10px' }}>{row.name}</td>
             <td style={{ padding: '10px' }}>{row.email}</td>
-            <td style={{ padding: '10px' }}>{row.validated ? 'Yes' : 'No'}</td>
+            <td style={{ padding: '10px' }}>{row.gaurdName}</td>
+            <td style={{ padding: '10px' }}>{row.origin}</td>
+            <td style={{ padding: '10px' }}>{row.date}</td>
+            <td style={{ padding: '10px' }}>{row.shelfNumber}</td>
             <td style={{ padding: '10px' }}>
               <button
                 onClick={() => handleValidate(row.id)}
