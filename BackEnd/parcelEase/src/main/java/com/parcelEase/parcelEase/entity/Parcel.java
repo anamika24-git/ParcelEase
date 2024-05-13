@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 
 @Entity
 @Table(name = "parcel")
@@ -17,9 +19,11 @@ public class Parcel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pid", nullable = false)
-    private int pid;
+    @Column(name = "id", nullable = false)
+    private int id;
 
+    @Column(name = "pid", nullable = false)
+    private String  pid;
 
     @ManyToOne
     @JoinColumn(name = "roll_no", nullable = false) // Assuming phone_number is the foreign key column in Parcel referencing Student
@@ -35,7 +39,8 @@ public class Parcel {
     private String origin;
 
     @Column(name = "date", nullable = false)
-    private String date;
+    private LocalDate date;
+
 
     @Column(name = "shelf_number", nullable = false)
     private String shelfNumber;

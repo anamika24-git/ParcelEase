@@ -26,6 +26,16 @@ public class ParcelController {
         List<ParcelDTO> parcelDTOs = new ArrayList<>();
         for (Parcel parcel : activeParcels) {
             String studentRollNo = parcel.getStudent().getRollNo(); // Extract student roll number
+            String firstName = parcel.getStudent().getFirstName();
+            String middleName = parcel.getStudent().getMiddleName();
+            String lastName = parcel.getStudent().getLastName();
+
+            String studentName = firstName;
+            if (middleName != null && !middleName.isEmpty()) {
+                studentName += " " + middleName;
+            }
+            studentName += " " + lastName;
+            String studentEmail = parcel.getStudent().getEmail();
 
             // Create a new ParcelDTO object and include the studentRollNo
             ParcelDTO parcelDTO = new ParcelDTO(
@@ -35,7 +45,10 @@ public class ParcelController {
                     parcel.getShelfNumber(),  // Set shelfNumber from Parcel
                     parcel.getReceivedBy(),   // Set receivedBy from Parcel
                     parcel.getIsCollected(),     // Set status from Parcel
-                    studentRollNo             // Set studentRollNo extracted earlier
+                    studentName,
+                    studentEmail
+
+                    // Set studentRollNo extracted earlier
             );
 
             // Add the newly created ParcelDTO object to the list
