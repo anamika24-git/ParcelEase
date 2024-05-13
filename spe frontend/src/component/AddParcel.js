@@ -57,7 +57,8 @@ const AddParcel = ({ parcelModalClose }) => {
         console.log('POST AWS OTP Generate');
         const body = {};
         body.name = studentFullName;
-        // body.pid =  `PN-${uuid}`;
+        body.pid =  `PN-${uuid}`;
+        body.company =  companyName;
         body.email = 'neeraj.gsti@gmail.com';
         //https://sdkx8xrifd.execute-api.us-east-1.amazonaws.com/dev/generateOtp
         axios.post('https://sdkx8xrifd.execute-api.us-east-1.amazonaws.com/dev/generateOtp', body, { headers })
