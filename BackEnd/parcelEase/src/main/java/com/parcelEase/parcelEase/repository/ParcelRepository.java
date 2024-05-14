@@ -8,4 +8,7 @@ import java.util.List;
 public interface ParcelRepository extends JpaRepository<Parcel,Integer> {
             List<Parcel> findByIsCollected(int status);
 
+    Parcel findByPid(String pid);
+
+
 }

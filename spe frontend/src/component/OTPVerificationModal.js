@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './OTPVerificationModal.css';
 import Modal from 'react-modal';
+import axios from 'axios';
 //import axios from 'axios';
 
 Modal.setAppElement('#root'); // Set the root element for accessibility
@@ -15,7 +16,7 @@ const customStyles = {
   },
 };
 
-const OTPVerificationModal = ({ isOpen, onRequestClose }) => {
+const OTPVerificationModal = ({ isOpen, onRequestClose, parcelId, updateStudentTable }) => {
   const [otp, setOTP] = useState('');
   const [verificationStatus, setVerificationStatus] = useState('');
   const [loading, setLoading] = useState(false);
@@ -29,29 +30,43 @@ const OTPVerificationModal = ({ isOpen, onRequestClose }) => {
     console.log("otp", otp)
     e.preventDefault();
     setLoading(true);
-    // just for testing add setTimeout
-    setTimeout(function () {
-      setLoading(false);
-      if (!(otp === 1234)) {
-        setVerificationStatus('valid')
-        //onRequestClose();
+    const body = {};
+        body.parcelId = parcelId;
+        body.otp =  otp;
+        const headers =  {
+          'content-type':'application/json'
       }
-    }, 5000);
-
-    // try {
-    //   const response = await axios.post('your_verification_api_url', { otp });
-    //   if (response.status === 200) {
-    //     setVerificationStatus('valid');
-    //   } else {
-    //     setVerificationStatus('invalid');
-    //     setError('Invalid OTP. Please try again.');
-    //   }
-    // } catch (error) {
-    //   console.error('Error occurred:', error);
-    //   setError('An error occurred while verifying OTP. Please try again later.');
-    // } finally {
-    //   setLoading(false);
-    // }
+     axios.post(`https://sdkx8xrifd.execute-api.us-east-1.amazonaws.com/dev/validateOtp`, body , {headers})
+    .then(response => {
+     console.log('POST AWS Call');
+      if(response.status === 200) {
+        setLoading(false);
+        console.log('POST isCollected status to 0');
+        axios.post(`http://localhost:9090/parcelease/parcelId/${parcelId}`)
+       .then(response => {
+      if(response.status === 200){
+        setVerificationStatus('valid');
+          console.log('POST call', response);
+          updateStudentTable();
+          onRequestClose();
+          setOTP('');
+          setVerificationStatus('')
+      } else {
+        setVerificationStatus('invalid');
+      }
+        }).catch(error => {
+          console.error('Error making Java POST request:', error);
+       });
+       }
+       else {
+        setLoading(false);
+        setVerificationStatus('invalid');
+       }
+     })
+   .catch(error => {
+    setLoading(false);
+      console.error('Error making AWS POST request:', error);
+   });
   };
 
   return (

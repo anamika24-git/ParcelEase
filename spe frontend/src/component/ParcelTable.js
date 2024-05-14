@@ -19,16 +19,16 @@ const ParcelTable = ({handleValidate, data}) => {
       <tbody>
         {data.map((row, index) => (
           <tr key={row.id} style={{ borderBottom: '1px solid #ddd' }}>
-            <td style={{ padding: '10px' }}>{row.id}</td>
-            <td style={{ padding: '10px' }}>{row.name}</td>
-            <td style={{ padding: '10px' }}>{row.email}</td>
-            <td style={{ padding: '10px' }}>{row.gaurdName}</td>
+            <td style={{ padding: '10px' }}>{row.pid}</td>
+            <td style={{ padding: '10px' }}>{row.studentName}</td>
+            <td style={{ padding: '10px' }}>{row.studentEmail}</td>
+            <td style={{ padding: '10px' }}>{row.receivedBy}</td>
             <td style={{ padding: '10px' }}>{row.origin}</td>
             <td style={{ padding: '10px' }}>{row.date}</td>
             <td style={{ padding: '10px' }}>{row.shelfNumber}</td>
             <td style={{ padding: '10px' }}>
               <button
-                onClick={() => handleValidate(row.id)}
+                onClick={() => handleValidate(row.pid)}
                 disabled={row.validated}
                 style={{
                   backgroundColor: row.validated ? '#ccc' : '#4CAF50',

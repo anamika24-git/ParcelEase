@@ -5,6 +5,8 @@ import com.parcelEase.parcelEase.entity.Parcel;
 import com.parcelEase.parcelEase.entity.Student;
 import com.parcelEase.parcelEase.service.ParcelService;
 import com.parcelEase.parcelEase.service.StudentService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.lang.model.type.ArrayType;
@@ -57,4 +59,18 @@ public class ParcelController {
 
         return parcelDTOs; // Return the list of ParcelDTO objects
     }
+    @PostMapping("/parcelId/{pid}")
+    public ResponseEntity<String> updateParcelStatus(@PathVariable String pid) {
+        Parcel parcel = parcelService.findByPid(pid);
+
+        if (parcel == null) {
+            return new ResponseEntity<>("Parcel not found", HttpStatus.NOT_FOUND);
+        }
+
+        parcel.setIsCollected(0); // Set the status to 0
+        parcelService.save(parcel);
+
+        return new ResponseEntity<>("Parcel status updated successfully", HttpStatus.OK);
+    }
+
     }

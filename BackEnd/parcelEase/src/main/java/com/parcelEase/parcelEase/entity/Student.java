@@ -42,5 +42,8 @@ public class Student {
     @JsonBackReference
     @OneToMany(mappedBy = "student" , cascade = CascadeType.MERGE)
     private List<Parcel> parcels;
+
+    public Student(String number, String john, String s, String doe, String course, String number1, String mail, String address) {
+    }
 }
 

@@ -4,7 +4,7 @@ import axios from 'axios';
 import './AddParcel.css';
 import { getCurrentDate } from '../utils'
 
-const AddParcel = ({ parcelModalClose }) => {
+const AddParcel = ({ parcelModalClose, updateStudentTable }) => {
   const [parcelData, setParcelData] = useState({
     phoneNumber: "",
     gaurdName: "",
@@ -64,6 +64,7 @@ const AddParcel = ({ parcelModalClose }) => {
         axios.post('https://sdkx8xrifd.execute-api.us-east-1.amazonaws.com/dev/generateOtp', body, { headers })
         .then(response => {
           console.log('POST AWS Generate OTP', response);
+          updateStudentTable();
         })
       }
     })
@@ -71,7 +72,7 @@ const AddParcel = ({ parcelModalClose }) => {
       console.error('Error making POST request:', error);
       // Handle error
     });
-    // parcelModalClose();
+     parcelModalClose();
   };
 
   return (

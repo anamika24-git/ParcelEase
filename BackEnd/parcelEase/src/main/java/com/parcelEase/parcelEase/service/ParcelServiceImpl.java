@@ -18,4 +18,14 @@ public ParcelServiceImpl(ParcelRepository theParcelRepository) {
     @Override
     public List<Parcel> findByIsCollected(int status) {return parcelRepository.findByIsCollected(status);}
 
+    @Override
+    public Parcel findByPid(String pid) {
+        return parcelRepository.findByPid(pid);
+    }
+
+    @Override
+    public Parcel save(Parcel parcel) {
+        return parcelRepository.save(parcel);
+    }
+
 }
