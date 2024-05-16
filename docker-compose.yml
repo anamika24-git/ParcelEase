@@ -1,0 +1,56 @@
+version: '3.9'
+
+networks:
+  pease-network:
+
+volumes:
+  database-volume:
+  logs:
+
+services:
+  mydb:
+    image: mysql:latest
+    container_name: database-container
+    environment:
+      MYSQL_ROOT_PASSWORD: ana1234
+      MYSQL_DATABASE: ParcelEase
+    volumes:
+      - database-volume:/var/lib/mysql
+    networks:
+      - pease-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
+
+  pease-backend:
+    build: ./BackEnd/parcelEase
+    image: parcelease-backend
+    container_name: pease-backend
+    restart: always
+    ports:
+      - "9090:9090"
+    environment:
+      - MYSQL_HOST=mydb
+      - MYSQL_ROOT_PASSWORD=ana1234
+      - MYSQL_DATABASE=ParcelEase
+      - MYSQL_URL=3306
+    volumes:
+      - logs:/logs
+    networks:
+      - pease-network
+    depends_on:
+      mydb:
+        condition: service_healthy
+
+  pease-frontend:
+    build: ./spe frontend
+    image: parcelease-frontend
+    container_name: pease-frontend
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    networks:
+      - pease-network
+    depends_on:
+      - pease-backend

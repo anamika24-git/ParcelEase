@@ -1,7 +1,6 @@
 FROM node:alpine
 WORKDIR /frontend
-COPY package*.json .
-RUN npm install
 COPY . .
+RUN npm install
 # Run tests & Then start
 CMD [ "npm",  "start" ]
