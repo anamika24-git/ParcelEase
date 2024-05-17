@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Student {
 
+
     @Id
     @Column(name = "roll_no", nullable = false, unique = true)
     private String rollNo;
@@ -45,5 +46,6 @@ public class Student {
 
     public Student(String number, String john, String s, String doe, String course, String number1, String mail, String address) {
     }
+
 }
 
