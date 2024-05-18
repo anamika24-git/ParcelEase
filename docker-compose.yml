@@ -17,7 +17,6 @@ services:
       MYSQL_DATABASE: ParcelEase
     volumes:
       - database-volume:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     # networks:
     #   - pease-network
     healthcheck:
