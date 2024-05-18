@@ -27,7 +27,10 @@ services:
   pease-backend:
     build: ./BackEnd/parcelEase
     image: parcelease-backend
+<<<<<<< HEAD
     # container_name: pease-backend
+=======
+>>>>>>> origin/main
     restart: always
     ports:
       - "9090:9090"
@@ -49,7 +52,10 @@ services:
   pease-frontend:
     build: ./spe frontend
     image: parcelease-frontend
+<<<<<<< HEAD
     # container_name: pease-frontend
+=======
+>>>>>>> origin/main
     stdin_open: true
     ports:
       - "3000:3000"
