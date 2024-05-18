@@ -17,6 +17,7 @@ services:
       MYSQL_DATABASE: ParcelEase
     volumes:
       - database-volume:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     # networks:
     #   - pease-network
     healthcheck:
@@ -68,6 +69,7 @@ services:
       - "9200:9200"
     volumes:
       - elastic_data:/usr/share/elasticsearch/data
+      
 
   kibana:
     image: docker.elastic.co/kibana/kibana:8.3.3
