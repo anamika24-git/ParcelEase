@@ -4,6 +4,8 @@ package com.parcelEase.parcelEase.controller;
 import com.parcelEase.parcelEase.entity.Parcel;
 import com.parcelEase.parcelEase.entity.Student;
 import com.parcelEase.parcelEase.service.StudentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +14,8 @@ import java.util.List;
 @RequestMapping("/parcelease")
 @CrossOrigin(origins = "*")
 public class StudentController {
+
+    private static final Logger logger = LoggerFactory.getLogger(StudentController.class);
 
     private StudentService studentService;
 
@@ -39,7 +43,7 @@ public class StudentController {
     @PostMapping("/parcels/{rollNumber}")
     public Student parcelReceived(@RequestBody Parcel parcel,
                                   @PathVariable("rollNumber") String rollNumber) {
-
+        logger.info("PARCEL_RECEIVED");
         return studentService.save(parcel, rollNumber);
     }
 

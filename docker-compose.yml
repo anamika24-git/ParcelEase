@@ -1,23 +1,24 @@
 version: '3.9'
 
-networks:
-  pease-network:
+# networks:
+#   pease-network:
 
 volumes:
+  elastic_data:
+    driver: local
   database-volume:
   logs:
 
 services:
   mydb:
     image: mysql:latest
-    container_name: database-container
     environment:
       MYSQL_ROOT_PASSWORD: ana1234
       MYSQL_DATABASE: ParcelEase
     volumes:
       - database-volume:/var/lib/mysql
-    networks:
-      - pease-network
+    # networks:
+    #   - pease-network
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
@@ -26,7 +27,7 @@ services:
   pease-backend:
     build: ./BackEnd/parcelEase
     image: parcelease-backend
-    container_name: pease-backend
+    # container_name: pease-backend
     restart: always
     ports:
       - "9090:9090"
@@ -35,10 +36,12 @@ services:
       - MYSQL_ROOT_PASSWORD=ana1234
       - MYSQL_DATABASE=ParcelEase
       - MYSQL_URL=3306
+      - LOGGING_LOGSTASH_HOST=logstash_springboot
+      - LOGGING_LOGSTASH_PORT=5001
     volumes:
       - logs:/logs
-    networks:
-      - pease-network
+    # networks:
+    #   - pease-network
     depends_on:
       mydb:
         condition: service_healthy
@@ -46,11 +49,52 @@ services:
   pease-frontend:
     build: ./spe frontend
     image: parcelease-frontend
-    container_name: pease-frontend
+    # container_name: pease-frontend
     stdin_open: true
     ports:
       - "3000:3000"
-    networks:
-      - pease-network
+    # networks:
+    #   - pease-network
     depends_on:
       - pease-backend
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.3.3
+    container_name: elastic_springboot
+    environment:
+      - bootstrap_memory_lock = true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "discovery.type=single-node"
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+    volumes:
+      - elastic_data:/usr/share/elasticsearch/data
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.3.3
+    container_name: kibana_springboot
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      ELASTICSEARCH_HOSTS: '["http://elasticsearch:9200"]'
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+
+  logstash:
+    restart: always
+    image: docker.elastic.co/logstash/logstash:8.3.3
+    container_name: logstash_springboot
+    volumes:
+      - ./ELK/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+      - ./ELK/logstash/pipeline:/usr/share/logstash/pipeline:re
+    environment:
+      LS_JAVA_OPTS: "-Xmx512m -Xms512m"
+    ports:
+      - "5044:5044"
+      - "5001:5001/tcp"
+      - "5001:5001/udp"
+      - "9600:9600"
+    depends_on:
+      - elasticsearch

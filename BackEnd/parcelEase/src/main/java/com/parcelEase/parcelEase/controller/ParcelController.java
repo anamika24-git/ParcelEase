@@ -2,9 +2,9 @@ package com.parcelEase.parcelEase.controller;
 
 import com.parcelEase.parcelEase.dto.ParcelDTO;
 import com.parcelEase.parcelEase.entity.Parcel;
-import com.parcelEase.parcelEase.entity.Student;
 import com.parcelEase.parcelEase.service.ParcelService;
-import com.parcelEase.parcelEase.service.StudentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +18,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class ParcelController {
 
+    private static final Logger logger = LoggerFactory.getLogger(ParcelController.class);
     ParcelService parcelService;
     public ParcelController(ParcelService theParcelService) {
         parcelService = theParcelService;
@@ -61,6 +62,7 @@ public class ParcelController {
     }
     @PostMapping("/parcelId/{pid}")
     public ResponseEntity<String> updateParcelStatus(@PathVariable String pid) {
+        logger.info("PARCEL_COLLECTED");
         Parcel parcel = parcelService.findByPid(pid);
 
         if (parcel == null) {
