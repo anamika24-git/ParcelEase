@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="App">
 
-      {true && <Topbar />}
+      {isLoggedIn && <Topbar />}
       {/* Defining Route path and rendering component as element */}
      <Routes>
       <Route path='/' element={isLoggedIn ? <Home /> : <Login handleLogin={handleLogin} />} />
